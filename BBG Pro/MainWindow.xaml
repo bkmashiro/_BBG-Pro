@@ -15,5 +15,15 @@
                 
             </Frame>
         </Grid>
+        <Button Click="Button_Click"
+                Visibility="Collapsed">
+            test
+        </Button>
+        <Button Click="Button_Click_1"
+                Content="test 3d"
+                Margin="0,0,0,163"
+                VerticalAlignment="Bottom"
+                d:LayoutOverrides="Height"
+                Visibility="Collapsed"/>
     </Grid>
 </Window>

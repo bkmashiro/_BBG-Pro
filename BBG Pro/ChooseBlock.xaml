@@ -1,0 +1,29 @@
+﻿<Page x:Class="BBG_Pro.ChooseBlock"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:BBG_Pro"
+      mc:Ignorable="d"
+      d:DesignHeight="450"
+      d:DesignWidth="800"
+      Title="ChooseBlock">
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="9*" />
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.RowSpan="2"
+                      d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
+            <ListBox x:Name="block_list"
+                     Width="800" />
+        </ScrollViewer>
+        <Button Content="颜色视图"
+                HorizontalAlignment="Left"
+                Margin="0,2,0,9.667"
+                Width="100"
+                Height="Auto"
+                d:LayoutOverrides="LeftMargin, RightMargin" 
+                Click="Button_Click"/>
+    </Grid>
+</Page>

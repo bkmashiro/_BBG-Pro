@@ -1,0 +1,163 @@
+﻿<Page x:Class="BBG_Pro.Pages.Generate"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:BBG_Pro.Pages"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d"
+      d:DesignHeight="450"
+      d:DesignWidth="800"
+      Title="Generate">
+    <Grid>
+        <!-- the transitioner will manage your transitions. notice how SelectedIndex is set to zero: the first slide (instead of the default of -1) -->
+        <materialDesign:Transitioner SelectedIndex="0"
+                                     AutoApplyTransitionOrigins="True">
+            <!--<materialDesign:Transitioner.InputBindings>
+                <KeyBinding Key="Left"
+                            Command="{x:Static materialDesign:Transitioner.MovePreviousCommand}" />
+                <KeyBinding Key="Right"
+                            Command="{x:Static materialDesign:Transitioner.MoveNextCommand}" />
+            </materialDesign:Transitioner.InputBindings>-->
+            <!-- you can use a slide for each page, let's add a touch of fade for our first page  -->
+            <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect FadeIn}">
+                <Grid Background="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="273*" />
+                        <ColumnDefinition Width="527*" />
+                    </Grid.ColumnDefinitions>
+                    <Image Margin="10,10,12,184"
+                           d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"
+                           Width="256"
+                           Height="256" />
+                    <Button Style="{StaticResource MaterialDesignIconButton}"
+                            ToolTip="MaterialDesignIconButton"
+                            Background="{DynamicResource MaterialDesignTextFieldBoxBackground}"
+                            HorizontalAlignment="Left"
+                            Margin="10,0,0,136"
+                            VerticalAlignment="Bottom"
+                            d:LayoutOverrides="Width, Height">
+                        <materialDesign:PackIcon Kind="Plus" />
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignIconButton}"
+                            ToolTip="MaterialDesignIconButton"
+                            Background="{DynamicResource MaterialDesignTextFieldBoxBackground}"
+                            HorizontalAlignment="Left"
+                            Margin="63,0,0,136"
+                            VerticalAlignment="Bottom"
+                            d:LayoutOverrides="Width, Height">
+                        <materialDesign:PackIcon Kind="Trash" />
+                    </Button>
+                    <TextBlock Margin="10,0,19,46"
+                               TextWrapping="Wrap"
+                               Text="imageInfo"
+                               VerticalAlignment="Bottom"
+                               Height="80"
+                               FontSize="15"
+                               d:LayoutOverrides="LeftMargin, RightMargin" />
+                    <TextBlock Grid.Column="1"
+                               HorizontalAlignment="Left"
+                               Margin="10,19,0,0"
+                               TextWrapping="Wrap"
+                               Text="方块已选择{0}个"
+                               VerticalAlignment="Top"
+                               Height="15"
+                               Width="87"
+                               d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
+                    <Button Content="去选择方块"
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            Margin="0,13,10,0"
+                            VerticalAlignment="Top"
+                            Width="109"
+                            d:LayoutOverrides="Height, LeftMargin, RightMargin, TopMargin, BottomMargin" />
+                    <TextBlock Grid.Column="1"
+                               HorizontalAlignment="Left"
+                               Margin="10,19,0,0"
+                               TextWrapping="Wrap"
+                               Text="方块已选择{0}个"
+                               VerticalAlignment="Top"
+                               Height="15"
+                               Width="87"
+                               d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
+                    <ToggleButton Style="{StaticResource MaterialDesignSwitchLightToggleButton}"
+                                  ToolTip="MaterialDesignSwitchLightToggleButton"
+                                  IsChecked="True"
+                                  Grid.Column="1"
+                                  HorizontalAlignment="Right"
+                                  Margin="0,50,10,0"
+                                  Width="75"
+                                  Height="33"
+                                  VerticalAlignment="Top"
+                                  d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
+                    <Expander Header="高级设置"
+                              Margin="0,102,10,0"
+                              Grid.Column="1"
+                              VerticalAlignment="Top"
+                              d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin">
+                        <StackPanel Orientation="Vertical"
+                                    TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+                                    Margin="24,8,24,16">
+                            <TextBlock Text="获取帮助" />
+                            <Grid>
+                                <TextBlock HorizontalAlignment="Left"
+                                           Width="84"
+                                           Margin="0,3,0,-3">
+                                    高级抖动模式：</TextBlock>
+                                <ComboBox materialDesign:HintAssist.Hint="OS"
+                                          HorizontalAlignment="Left"
+                                          Width="218"
+                                          Margin="84,0,0,0">
+                                    <ComboBoxItem Content="默认" />
+                                    <ComboBoxItem Content="无抖动" />
+                                    <ComboBoxItem Content="a" />
+                                    <ComboBoxItem Content="n" />
+                                </ComboBox>
+                            </Grid>
+                        </StackPanel>
+                    </Expander>
+                    <Button Style="{StaticResource MaterialDesignRaisedLightButton}"
+                            ToolTip="Resource name: MaterialDesignRaisedLightButton"
+                            Content="生成！"
+                            Grid.Column="1"
+                            Margin="0,0,10,10"
+                            VerticalAlignment="Bottom"
+                            d:LayoutOverrides="Height"
+                            HorizontalAlignment="Right"
+                            Width="171" />
+                    <TextBlock Grid.Column="1"
+                               HorizontalAlignment="Left"
+                               Margin="10,59,0,0"
+                               TextWrapping="Wrap"
+                               Text="立体地图画：关闭"
+                               VerticalAlignment="Top"
+                               Height="15"
+                               Width="96"
+                               d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
+                </Grid>
+            </materialDesign:TransitionerSlide>
+            <!-- but you can use bare xaml too -->
+            <!-- you can control (and create your own) wipes -->
+            <materialDesign:TransitionerSlide>
+                <materialDesign:TransitionerSlide.BackwardWipe>
+                    <materialDesign:CircleWipe />
+                </materialDesign:TransitionerSlide.BackwardWipe>
+                <materialDesign:TransitionerSlide.ForwardWipe>
+                    <materialDesign:SlideWipe Direction="Right" />
+                </materialDesign:TransitionerSlide.ForwardWipe>
+            </materialDesign:TransitionerSlide>
+            <!-- now we are going to slide this in by combining some extra effects.  the inner content slides in, so we'll set the outer background and clip, to keep things nice -->
+            <materialDesign:TransitionerSlide Background="{DynamicResource MaterialDesignDarkBackground}"
+                                              Foreground="{DynamicResource MaterialDesignDarkForeground}"
+                                              ClipToBounds="True">
+                <materialDesign:TransitionerSlide.OpeningEffects>
+                    <materialDesign:TransitionEffect Kind="SlideInFromLeft"
+                                                     Duration="0:0:0.8" />
+                    <materialDesign:TransitionEffect Kind="SlideInFromBottom"
+                                                     Duration="0:0:0.8"
+                                                     OffsetTime="0:0:0.15" />
+                </materialDesign:TransitionerSlide.OpeningEffects>
+            </materialDesign:TransitionerSlide>
+        </materialDesign:Transitioner>
+    </Grid>
+</Page>
