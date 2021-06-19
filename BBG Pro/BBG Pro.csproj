@@ -70,10 +70,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ChooseBlock.xaml.cs">
+    <Compile Include="Pages\ChooseBlock.xaml.cs">
       <DependentUpon>ChooseBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="CommonStructure.cs" />
+    <Compile Include="Pages\diagnosis.xaml.cs">
+      <DependentUpon>diagnosis.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Generate.xaml.cs">
       <DependentUpon>Generate.xaml</DependentUpon>
     </Compile>
@@ -81,7 +84,7 @@
     <Compile Include="Service\ImageProcessService.cs" />
     <Compile Include="Service\MapGenerator.cs" />
     <Compile Include="Service\SchematicsService.cs" />
-    <Page Include="ChooseBlock.xaml">
+    <Page Include="Pages\ChooseBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -97,6 +100,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\diagnosis.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\Generate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

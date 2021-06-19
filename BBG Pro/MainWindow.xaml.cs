@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace BBG_Pro
 {
@@ -28,15 +21,32 @@ namespace BBG_Pro
         private void Main_frame_Loaded(object sender, RoutedEventArgs e)
         {
             //加载welcome
-            LoadPageTo(@"Pages\Welcome.xaml", Main_frame);
+            //LoadPageTo(@"Pages\Welcome.xaml", Main_frame);
+            LoadPageTo(@"Pages\Generate.xaml", Main_frame);
+            //LoadChooseBlockPage();
         }
-
-        private void LoadPageTo(string uri ,Frame frame)
+     
+        private void LoadPageTo(string uri, Frame frame)
         {
             frame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
-            frame.Navigate(new Uri(uri,UriKind.Relative));
+            frame.Navigate(new Uri(uri, UriKind.Relative));
 
         }
+        private void LoadPageTo(Page page, Frame frame)
+        {
+            frame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+            frame.Navigate(page);
+        }
+
+        private void LoadChooseBlockPage()
+        {
+            Service.BlockInfoService blockInfoService = new Service.BlockInfoService();
+            blockInfoService.Init();//初始化
+            blockInfoService.EnableHeight(Service.BlockInfoService.HeightState.flat);//仅载入平面的
+            ChooseBlock chooseBlock = new ChooseBlock(blockInfoService);
+            LoadPageTo(chooseBlock, Main_frame);
+        }
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -78,7 +88,7 @@ namespace BBG_Pro
 
             Service.SchematicsService schematicsService = new Service.SchematicsService();
 
-            schematicsService.Read3D(mapGenerator.result,mapGenerator.height);
+            schematicsService.Read3D(mapGenerator.result, mapGenerator.height);
             schematicsService.ReadBlockDatas(blockInfoService.GetChoosenBlocks());
 
             schematicsService.Generate();

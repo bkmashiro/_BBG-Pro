@@ -12,13 +12,14 @@
     <Grid>
         <!-- the transitioner will manage your transitions. notice how SelectedIndex is set to zero: the first slide (instead of the default of -1) -->
         <materialDesign:Transitioner SelectedIndex="0"
-                                     AutoApplyTransitionOrigins="True">
-            <!--<materialDesign:Transitioner.InputBindings>
+                                     AutoApplyTransitionOrigins="True"
+                                     x:Name="trans">
+            <materialDesign:Transitioner.InputBindings>
                 <KeyBinding Key="Left"
                             Command="{x:Static materialDesign:Transitioner.MovePreviousCommand}" />
                 <KeyBinding Key="Right"
                             Command="{x:Static materialDesign:Transitioner.MoveNextCommand}" />
-            </materialDesign:Transitioner.InputBindings>-->
+            </materialDesign:Transitioner.InputBindings>
             <!-- you can use a slide for each page, let's add a touch of fade for our first page  -->
             <materialDesign:TransitionerSlide OpeningEffect="{materialDesign:TransitionEffect FadeIn}">
                 <Grid Background="White">
@@ -70,7 +71,8 @@
                             Margin="0,13,10,0"
                             VerticalAlignment="Top"
                             Width="109"
-                            d:LayoutOverrides="Height, LeftMargin, RightMargin, TopMargin, BottomMargin" />
+                            d:LayoutOverrides="Height, LeftMargin, RightMargin, TopMargin, BottomMargin"
+                            Click="Button_Click" />
                     <TextBlock Grid.Column="1"
                                HorizontalAlignment="Left"
                                Margin="10,19,0,0"
@@ -136,6 +138,7 @@
                                d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
                 </Grid>
             </materialDesign:TransitionerSlide>
+            <Frame Name="frame1"></Frame>
             <!-- but you can use bare xaml too -->
             <!-- you can control (and create your own) wipes -->
             <materialDesign:TransitionerSlide>
@@ -159,5 +162,14 @@
                 </materialDesign:TransitionerSlide.OpeningEffects>
             </materialDesign:TransitionerSlide>
         </materialDesign:Transitioner>
+        <Button x:Name="GoBack"
+                Click="GoBack_Click"
+                Height="39"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Width="123"
+                Content="返回"
+                Margin="0,6,2,0"
+                Visibility="Collapsed"/>
     </Grid>
 </Page>

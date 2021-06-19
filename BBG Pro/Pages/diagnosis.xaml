@@ -1,0 +1,27 @@
+﻿<Page x:Class="BBG_Pro.Pages.diagnosis"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:BBG_Pro.Pages"
+      mc:Ignorable="d"
+      d:DesignHeight="450"
+      d:DesignWidth="800"
+      Title="diagnosis">
+    <Grid Loaded="Grid_Loaded">
+        <Button x:Name="btn" Click="Button_Click">单击以启用色彩诊断（这可能需要一些时间）</Button>
+        <Grid x:Name="g" Visibility="Collapsed">
+            <TextBlock Text="色彩诊断"
+                       FontSize="30"
+                       Margin="10,10,10,0"
+                       Height="42"
+                       VerticalAlignment="Top"></TextBlock>
+            <Canvas HorizontalAlignment="Left"
+                    Margin="10,57,0,133"
+                    Width="512"
+                    Name="cv"
+                    VerticalAlignment="Top"
+                    Height="512" />
+        </Grid>
+    </Grid>
+</Page>

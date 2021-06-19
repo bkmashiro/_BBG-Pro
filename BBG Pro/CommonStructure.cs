@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Colourful;
+﻿using Colourful;
 
 namespace BBG_Pro
 {
     //提供广泛的自定类型，以及一些方法
     public static class CommonStructure
     {
-        
+
         //二维模型
         public struct BlockData
         {
@@ -18,11 +13,12 @@ namespace BBG_Pro
             public readonly byte metadata;//附加值
             public readonly LabColor LabColor;//Lab颜色
             public readonly RGBColor RGBColor;//RGB颜色
-            public readonly string image;//方块图片
+            public readonly string[] image;//方块图片
             public readonly byte classid;//方块图片
             public readonly byte height;
+            public bool enabled;
 
-            public BlockData(string namae,byte meta,LabColor lab,RGBColor rGB,string img,byte cls,byte h)
+            public BlockData(string namae, byte meta, LabColor lab, RGBColor rGB, string[] img, byte cls, byte h, bool b = false)
             {
                 name = namae;
                 metadata = meta;
@@ -31,6 +27,7 @@ namespace BBG_Pro
                 image = img;
                 classid = cls;
                 height = h;
+                enabled = b;
             }
         }
 
@@ -64,7 +61,7 @@ namespace BBG_Pro
 
         }
 
-        public static void CopyBlockData(this BlockData blockData,BlockResult block)
+        public static void CopyBlockData(this BlockData blockData, BlockResult block)
         {
 
         }

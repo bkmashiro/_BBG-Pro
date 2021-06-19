@@ -11,9 +11,11 @@ namespace BBG_Pro.Service
     //提供方块信息寄存的服务
     public class BlockInfoService
     {
-        List<BlockData> choosen_blockDatas = new List<BlockData>();//已选择的方块信息
-        List<BlockData> result_blockDatas = new List<BlockData>();//输出方块信息
+        public List<BlockData> choosen_blockDatas = new List<BlockData>();//已选择的方块信息
+        public List<BlockData> result_blockDatas = new List<BlockData>();//输出方块信息
 
+        public bool[] classEnabled;//启用颜色
+        public string[] demoBlock;//用于显示的方块的URI
 
         List<BlockData> blockDatas_higher = new List<BlockData>();//更高的方块信息
         List<BlockData> blockDatas_flat = new List<BlockData>();//齐平的方块信息
@@ -24,6 +26,8 @@ namespace BBG_Pro.Service
         float multiplier_flat = 0.86274f;
 
         float multiplier_lower = 0.70588f;
+
+        public bool ThreeDEnabled = false;
         /// <summary>
         /// 初始化h,f,l
         /// </summary>
@@ -36,11 +40,11 @@ namespace BBG_Pro.Service
             {
                 RGBColor RGB = RgbMulitply(multiplier_flat, item.RGBColor);
                 LabColor lab = converter.ToLab(RGB);
-                BlockData blockData = new BlockData(item.name, item.metadata, lab, RGB, item.image, item.classid,1);
+                BlockData blockData = new BlockData(item.name, item.metadata, lab, RGB, item.image, item.classid, 1);
                 blockDatas_flat.Add(blockData);
                 RGBColor RGB2 = RgbMulitply(multiplier_lower, item.RGBColor);
                 LabColor lab2 = converter.ToLab(RGB);
-                BlockData blockData2 = new BlockData(item.name, item.metadata, lab, RGB, item.image, item.classid,0);
+                BlockData blockData2 = new BlockData(item.name, item.metadata, lab, RGB, item.image, item.classid, 0);
                 blockDatas_lower.Add(blockData);
             }
         }
@@ -68,15 +72,18 @@ namespace BBG_Pro.Service
                     {
                         continue;
                     }
+                    ++color_cnt;
                     string[] dts = blockclass.Trim().Split(',');
                     if (dts.Length == 7)
                     {
                         RGBColor RGB = new RGBColor(System.Drawing.Color.FromArgb(255, int.Parse(dts[2]), int.Parse(dts[3]), int.Parse(dts[4])));
                         LabColor lab = converter.ToLab(RGB);
-                        BlockData blockData = new BlockData(dts[5], 0, lab, RGB, dts[5], byte.Parse(dts[0]),2);
+                        BlockData blockData = new BlockData(dts[5], 0, lab, RGB, dts[6].TrimEnd(';').Split(';'), byte.Parse(dts[0]), 2);
                         tmp.Add(blockData);
                     }
                 }
+                classEnabled = new bool[color_cnt];
+                demoBlock = new string[color_cnt];
                 blockDatas_higher = tmp;
             }
             catch (Exception ex)
@@ -84,7 +91,10 @@ namespace BBG_Pro.Service
                 MessageBox.Show("ERR-READ-001 读取方块信息时出现异常：" + ex.Message);
                 throw;
             }
-
+            for (int i = 0; i < classEnabled.Length; i++)
+            {
+                classEnabled[i] = true;
+            }
             return $"{color_cnt},{image_cnt}";
         }
         public void EnableAllHeight()
@@ -97,6 +107,7 @@ namespace BBG_Pro.Service
             IsFlatEnabled = true;
             IsLowerEnabled = true;
             result_blockDatas = choosen_blockDatas;
+            ThreeDEnabled = true;
         }
         public void DisableHeight()
         {
