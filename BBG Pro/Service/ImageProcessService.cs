@@ -21,6 +21,12 @@ namespace BBG_Pro.Service
             img_sourse = path;
             bitmap = new Bitmap(path);
         }
+
+        public void LoadImage(Bitmap bmp)
+        {
+            bitmap = new Bitmap(bmp);
+        }
+
         public byte[,,] GetArrayImg()
         {
             imgByte = new byte[bitmap.Width, bitmap.Height,3];

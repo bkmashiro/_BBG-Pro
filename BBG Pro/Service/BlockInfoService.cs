@@ -17,7 +17,7 @@ namespace BBG_Pro.Service
         public bool[] classEnabled;//启用颜色
         public string[] demoBlock;//用于显示的方块的URI
 
-        List<BlockData> blockDatas_higher = new List<BlockData>();//更高的方块信息
+        public List<BlockData> blockDatas_higher = new List<BlockData>();//更高的方块信息
         List<BlockData> blockDatas_flat = new List<BlockData>();//齐平的方块信息
         List<BlockData> blockDatas_lower = new List<BlockData>();//更低的方块信息
 
@@ -78,7 +78,7 @@ namespace BBG_Pro.Service
                     {
                         RGBColor RGB = new RGBColor(System.Drawing.Color.FromArgb(255, int.Parse(dts[2]), int.Parse(dts[3]), int.Parse(dts[4])));
                         LabColor lab = converter.ToLab(RGB);
-                        BlockData blockData = new BlockData(dts[5], 0, lab, RGB, dts[6].TrimEnd(';').Split(';'), byte.Parse(dts[0]), 2);
+                        BlockData blockData = new BlockData(dts[5], 0, lab, RGB, dts[6].TrimEnd(';').Split(';'), (byte)(byte.Parse(dts[0])), 2);
                         tmp.Add(blockData);
                     }
                 }
@@ -117,15 +117,70 @@ namespace BBG_Pro.Service
         public BlockData[] GetBlockDatas() => blockDatas_flat.ToArray();
         public BlockData[] GetChoosenBlocks()
         {
+
             if (result_blockDatas.Count != 0)
             {
                 return result_blockDatas.ToArray();
             }
             else
             {
-                return choosen_blockDatas.ToArray();
+                if (choosen_blockDatas.Count == 0)
+                {
+                    return blockDatas_flat.ToArray();
+                }
+                else
+                {
+                    List<BlockData> blockDatas = new List<BlockData>();
+
+                    for (int i = 0; i < classEnabled.Length; i++)
+                    {
+                        if (classEnabled[i])
+                        {
+                            if (ThreeDEnabled)
+                            {
+                                blockDatas.Add(choosen_blockDatas[i]);
+                                blockDatas.Add(choosen_blockDatas[i + blockDatas.Count / 3]);
+                                blockDatas.Add(choosen_blockDatas[i + blockDatas.Count / 3 * 2]);
+                            }
+                            else
+                            {
+                                blockDatas.Add(choosen_blockDatas[i]);
+                            }
+                        }
+                    }
+                    return blockDatas.ToArray();
+                }
             }
         }
+
+        public BlockData[] GetDatas()
+        {
+            List<BlockData> blockDatas = new List<BlockData>();
+
+            for (int i = 0; i < classEnabled.Length; i++)
+            {
+                if (classEnabled[i])
+                {
+                    if (ThreeDEnabled)
+                    {
+                        foreach (var item in choosen_blockDatas)
+                        {
+                            if (item.classid==i+1)
+                            {
+                                blockDatas.Add(item);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        blockDatas.Add(choosen_blockDatas[i]);
+                    }
+                }
+            }
+
+            return blockDatas.ToArray();
+        }
+
         private RGBColor RgbMulitply(double rate, RGBColor rgb)
         {
             return new RGBColor(rgb.R * rate, rgb.G * rate, rgb.B * rate);

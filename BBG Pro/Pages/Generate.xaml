@@ -10,6 +10,8 @@
       d:DesignWidth="800"
       Title="Generate">
     <Grid>
+        <materialDesign:Snackbar x:Name="Snackbar"
+                                 MessageQueue="{materialDesign:MessageQueue}" />
         <!-- the transitioner will manage your transitions. notice how SelectedIndex is set to zero: the first slide (instead of the default of -1) -->
         <materialDesign:Transitioner SelectedIndex="0"
                                      AutoApplyTransitionOrigins="True"
@@ -30,14 +32,16 @@
                     <Image Margin="10,10,12,184"
                            d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"
                            Width="256"
-                           Height="256" />
+                           Height="256"
+                           Name="showImg" />
                     <Button Style="{StaticResource MaterialDesignIconButton}"
                             ToolTip="MaterialDesignIconButton"
                             Background="{DynamicResource MaterialDesignTextFieldBoxBackground}"
                             HorizontalAlignment="Left"
                             Margin="10,0,0,136"
                             VerticalAlignment="Bottom"
-                            d:LayoutOverrides="Width, Height">
+                            d:LayoutOverrides="Width, Height"
+                            Click="Button_Click_1">
                         <materialDesign:PackIcon Kind="Plus" />
                     </Button>
                     <Button Style="{StaticResource MaterialDesignIconButton}"
@@ -46,7 +50,8 @@
                             HorizontalAlignment="Left"
                             Margin="63,0,0,136"
                             VerticalAlignment="Bottom"
-                            d:LayoutOverrides="Width, Height">
+                            d:LayoutOverrides="Width, Height"
+                            Click="Button_Click_2">
                         <materialDesign:PackIcon Kind="Trash" />
                     </Button>
                     <TextBlock Margin="10,0,19,46"
@@ -56,15 +61,6 @@
                                Height="80"
                                FontSize="15"
                                d:LayoutOverrides="LeftMargin, RightMargin" />
-                    <TextBlock Grid.Column="1"
-                               HorizontalAlignment="Left"
-                               Margin="10,19,0,0"
-                               TextWrapping="Wrap"
-                               Text="方块已选择{0}个"
-                               VerticalAlignment="Top"
-                               Height="15"
-                               Width="87"
-                               d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
                     <Button Content="去选择方块"
                             Grid.Column="1"
                             HorizontalAlignment="Right"
@@ -73,25 +69,27 @@
                             Width="109"
                             d:LayoutOverrides="Height, LeftMargin, RightMargin, TopMargin, BottomMargin"
                             Click="Button_Click" />
-                    <TextBlock Grid.Column="1"
+                    <TextBlock x:Name="colors_choosen"
+                               Grid.Column="1"
                                HorizontalAlignment="Left"
-                               Margin="10,19,0,0"
+                               Margin="9.667,22,0,0"
                                TextWrapping="Wrap"
-                               Text="方块已选择{0}个"
+                               Text="颜色已选择：57"
                                VerticalAlignment="Top"
                                Height="15"
-                               Width="87"
-                               d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
+                               Width="124" />
                     <ToggleButton Style="{StaticResource MaterialDesignSwitchLightToggleButton}"
                                   ToolTip="MaterialDesignSwitchLightToggleButton"
-                                  IsChecked="True"
+                                  IsChecked="False"
                                   Grid.Column="1"
                                   HorizontalAlignment="Right"
                                   Margin="0,50,10,0"
                                   Width="75"
                                   Height="33"
                                   VerticalAlignment="Top"
-                                  d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
+                                  d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin"
+                                  Click="ToggleButton_Click"
+                                  Name="toggle" />
                     <Expander Header="高级设置"
                               Margin="0,102,10,0"
                               Grid.Column="1"
@@ -106,14 +104,21 @@
                                            Width="84"
                                            Margin="0,3,0,-3">
                                     高级抖动模式：</TextBlock>
-                                <ComboBox materialDesign:HintAssist.Hint="OS"
+                                <ComboBox x:Name="cb"
+                                          materialDesign:HintAssist.Hint="抖动模式"
                                           HorizontalAlignment="Left"
                                           Width="218"
-                                          Margin="84,0,0,0">
-                                    <ComboBoxItem Content="默认" />
+                                          Margin="84,0,0,0"
+                                          SelectionChanged="cb_SelectionChanged">
                                     <ComboBoxItem Content="无抖动" />
-                                    <ComboBoxItem Content="a" />
-                                    <ComboBoxItem Content="n" />
+                                    <ComboBoxItem Content="Burkes" />
+                                    <ComboBoxItem Content="Fake" />
+                                    <ComboBoxItem Content="FloydSteinberg" />
+                                    <ComboBoxItem Content="JarvisJudiceNinke" />
+                                    <ComboBoxItem Content="Sierra" />
+                                    <ComboBoxItem Content="SierraLite" />
+                                    <ComboBoxItem Content="SierraTwoRow" />
+                                    <ComboBoxItem Content="Stucki" />
                                 </ComboBox>
                             </Grid>
                         </StackPanel>
@@ -126,8 +131,10 @@
                             VerticalAlignment="Bottom"
                             d:LayoutOverrides="Height"
                             HorizontalAlignment="Right"
-                            Width="171" />
-                    <TextBlock Grid.Column="1"
+                            Width="171"
+                            Click="Button_Click_3" />
+                    <TextBlock x:Name="tb_3d"
+                               Grid.Column="1"
                                HorizontalAlignment="Left"
                                Margin="10,59,0,0"
                                TextWrapping="Wrap"
@@ -138,7 +145,6 @@
                                d:LayoutOverrides="LeftMargin, RightMargin, TopMargin, BottomMargin" />
                 </Grid>
             </materialDesign:TransitionerSlide>
-            <Frame Name="frame1"></Frame>
             <!-- but you can use bare xaml too -->
             <!-- you can control (and create your own) wipes -->
             <materialDesign:TransitionerSlide>
@@ -148,11 +154,10 @@
                 <materialDesign:TransitionerSlide.ForwardWipe>
                     <materialDesign:SlideWipe Direction="Right" />
                 </materialDesign:TransitionerSlide.ForwardWipe>
+                <Frame Name="frame1"></Frame>
             </materialDesign:TransitionerSlide>
             <!-- now we are going to slide this in by combining some extra effects.  the inner content slides in, so we'll set the outer background and clip, to keep things nice -->
-            <materialDesign:TransitionerSlide Background="{DynamicResource MaterialDesignDarkBackground}"
-                                              Foreground="{DynamicResource MaterialDesignDarkForeground}"
-                                              ClipToBounds="True">
+            <materialDesign:TransitionerSlide ClipToBounds="True">
                 <materialDesign:TransitionerSlide.OpeningEffects>
                     <materialDesign:TransitionEffect Kind="SlideInFromLeft"
                                                      Duration="0:0:0.8" />
@@ -160,6 +165,27 @@
                                                      Duration="0:0:0.8"
                                                      OffsetTime="0:0:0.15" />
                 </materialDesign:TransitionerSlide.OpeningEffects>
+                <Grid>
+                    <TextBlock Height="44"
+                               VerticalAlignment="Top"
+                               Margin="10,0,0,0"
+                               Text="成功生成！"
+                               HorizontalAlignment="Left"
+                               Width="384"
+                               FontSize="30" />
+                    <Button VerticalAlignment="Top"
+                            Margin="250,65,377,0"
+                            Content="保存预览图片" 
+                            Click="Button_Click_4"/>
+                    <Button VerticalAlignment="Top"
+                            Margin="250,102,377,0"
+                            Content="导出schematics文件"
+                            Click="Button_Click_5"/>
+                    <Button VerticalAlignment="Top"
+                            Margin="250,139,377,0"
+                            Content="导出.bks文件"
+                            Click="Button_Click_6"/>
+                </Grid>
             </materialDesign:TransitionerSlide>
         </materialDesign:Transitioner>
         <Button x:Name="GoBack"
@@ -170,6 +196,6 @@
                 Width="123"
                 Content="返回"
                 Margin="0,6,2,0"
-                Visibility="Collapsed"/>
+                Visibility="Collapsed" />
     </Grid>
 </Page>

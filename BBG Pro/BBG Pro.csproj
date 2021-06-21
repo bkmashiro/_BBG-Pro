@@ -52,6 +52,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -70,6 +71,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Dither\AtkinsonDithering.cs" />
+    <Compile Include="Dither\BurkesDithering.cs" />
+    <Compile Include="Dither\DitheringBase.cs" />
+    <Compile Include="Dither\FakeDithering.cs" />
+    <Compile Include="Dither\FloydSteinbergDithering.cs" />
+    <Compile Include="Dither\IImageFormat.cs" />
+    <Compile Include="Dither\JarvisJudiceNinkeDithering.cs" />
+    <Compile Include="Dither\SierraDithering.cs" />
+    <Compile Include="Dither\SierraLiteDithering.cs" />
+    <Compile Include="Dither\SierraTwoRowDithering.cs" />
+    <Compile Include="Dither\StuckiDithering.cs" />
+    <Compile Include="Dither\TempByteImageFormat.cs" />
+    <Compile Include="Dither\TempDoubleImageFormat.cs" />
     <Compile Include="Pages\ChooseBlock.xaml.cs">
       <DependentUpon>ChooseBlock.xaml</DependentUpon>
     </Compile>
@@ -80,9 +94,12 @@
     <Compile Include="Pages\Generate.xaml.cs">
       <DependentUpon>Generate.xaml</DependentUpon>
     </Compile>
+    <Compile Include="pv.cs" />
     <Compile Include="Service\BlockInfoService.cs" />
+    <Compile Include="Service\DitherService.cs" />
     <Compile Include="Service\ImageProcessService.cs" />
     <Compile Include="Service\MapGenerator.cs" />
+    <Compile Include="Service\PreviewImageService.cs" />
     <Compile Include="Service\SchematicsService.cs" />
     <Page Include="Pages\ChooseBlock.xaml">
       <SubType>Designer</SubType>

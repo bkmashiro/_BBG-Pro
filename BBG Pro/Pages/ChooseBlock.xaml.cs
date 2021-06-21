@@ -224,7 +224,7 @@ namespace BBG_Pro
                 }
             }
             choose_stas.Text = $"{checked_cnt}/{BlockInfoService.classEnabled.Length}";
-
+            pv.colors_cnt = checked_cnt;
         }
 
         private Image GetSingeBlocklImage(string uri, CommonStructure.BlockData blockData)
@@ -314,7 +314,7 @@ namespace BBG_Pro
             Snackbar.MessageQueue.Clear();
             if (BlockInfoService.classEnabled[index])
             {
-                BlockInfoService.demoBlock[index] = (sender as Image).Source.ToString();
+                BlockInfoService.demoBlock[index] = (sender as Image).Source.ToString().Replace("file:///","");
                 demo_images[index].Source = (sender as Image).Source;
             }
             else
